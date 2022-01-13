@@ -7,7 +7,6 @@ namespace Business.ADO.DisConnectedMode
 {
     public partial class DisConnectedDataContext
     {
-
         public void AddEmployee(Employee employee)
         {
             //Ajouter la logique d'inserer un employee dans la base 
