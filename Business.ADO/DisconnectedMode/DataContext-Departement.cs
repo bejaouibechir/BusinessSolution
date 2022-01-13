@@ -16,6 +16,7 @@ namespace Business.ADO.DisConnectedMode
         //En cas de lecture on aura besoin de SqlDataReader
         SqlDataAdapter _adapter;
         DataSet _dataSet;
+        private DataTable _dataTable;
 
         public DisConnectedDataContext()
         {
@@ -49,7 +50,6 @@ namespace Business.ADO.DisConnectedMode
         }
         public DataTable GetAllDepartements()//Read
         {
-            DataTable current = new DataTable();
             _requête = "SELECT [DepartmentID],[Name],[GroupName],[ModifiedDate]" +
             $"FROM[dbo].[Department] ";
 
@@ -58,12 +58,14 @@ namespace Business.ADO.DisConnectedMode
                 _sqlConnection.Open();
                 _sqlCommand = new SqlCommand(_requête, _sqlConnection);
                 _adapter = new SqlDataAdapter(_sqlCommand);
-                _dataSet = new DataSet();
-                _adapter.Fill(_dataSet);
+                _dataTable = new DataTable();
+                _adapter.Fill(_dataTable);
+                return _dataTable;
             }
             catch (SqlException ex)
             {
                 Debug.WriteLine(ex.Message);
+                return null;
             }
             finally
             {
@@ -99,9 +101,36 @@ namespace Business.ADO.DisConnectedMode
             }
         }
 
-        private object GetDepartement(int id)
+        public Departement GetDepartement(int id)
         {
-            throw new NotImplementedException();
+            Departement current = new Departement();
+            _requête = "SELECT [DepartmentID],[Name],[GroupName],[ModifiedDate]" +
+            $"FROM[dbo].[Department] WHERE [DepartmentID] = {id}";
+
+            try
+            {
+                _sqlConnection.Open();
+                _sqlCommand = new SqlCommand(_requête, _sqlConnection);
+                _adapter = new SqlDataAdapter(_sqlCommand);
+                _dataTable = new DataTable();
+                _adapter.Fill(_dataTable);
+                var raw = _dataTable.Rows[0];
+                    current.DepartementID = int.Parse(raw[0].ToString());
+                    current.Name = raw[1].ToString();
+                    current.GroupName = raw[2].ToString();
+                    current.ModifiedDate = DateTime.Parse(raw[3].ToString());
+            }
+            catch (SqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
+
+
+            return current;
         }
 
         public void DeleteDepartement(int id)//Delete

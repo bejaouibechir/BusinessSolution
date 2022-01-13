@@ -53,8 +53,8 @@
     <Compile Include="DisconnectedMode\DataContext-Employee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Content Include="adventureworkslt.sql" />
     <Content Include="Model.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

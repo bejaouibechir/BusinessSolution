@@ -10,9 +10,6 @@ namespace Business.Console
         {
             DisConnectedDataContext context = new DisConnectedDataContext();
             Departement finance = context.GetDepartement(1);
-
-          
-            
             System.Console.Read();
         }
     }
