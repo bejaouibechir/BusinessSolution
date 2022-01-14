@@ -16,8 +16,7 @@ namespace Business.ADO.DisConnectedMode
         //En cas de lecture on aura besoin de SqlDataReader
         SqlDataAdapter _adapter;
         DataSet _dataSet;
-        private DataTable _dataTable;
-
+        DataTable _dataTable;
         public DisConnectedDataContext()
         {
             _connectionString = @"Data Source=PC2022\SQL;"+
@@ -101,6 +100,7 @@ namespace Business.ADO.DisConnectedMode
             }
         }
 
+        //Mode déconnecté
         public Departement GetDepartement(int id)
         {
             Departement current = new Departement();
@@ -112,25 +112,24 @@ namespace Business.ADO.DisConnectedMode
                 _sqlConnection.Open();
                 _sqlCommand = new SqlCommand(_requête, _sqlConnection);
                 _adapter = new SqlDataAdapter(_sqlCommand);
-                _dataTable = new DataTable();
-                _adapter.Fill(_dataTable);
+                _dataTable = new DataTable();//Un recipient xml
+                _adapter.Fill(_dataTable);//Remplir le recipent
                 var raw = _dataTable.Rows[0];
                     current.DepartementID = int.Parse(raw[0].ToString());
                     current.Name = raw[1].ToString();
                     current.GroupName = raw[2].ToString();
                     current.ModifiedDate = DateTime.Parse(raw[3].ToString());
+                return current;
             }
             catch (SqlException ex)
             {
                 Debug.WriteLine(ex.Message);
+                return null;
             }
             finally
             {
                 _sqlConnection.Close();
-            }
-
-
-            return current;
+            } 
         }
 
         public void DeleteDepartement(int id)//Delete

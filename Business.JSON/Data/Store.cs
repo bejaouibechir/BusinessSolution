@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Business.ADO.Data
+namespace Business.JSON.Data
 {
     public class Store
     {

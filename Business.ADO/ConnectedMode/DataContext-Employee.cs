@@ -1,16 +1,55 @@
 ﻿using Business.ADO.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 
 namespace Business.ADO.ConnectedMode
 {
     public partial class ConnectedDataContext
     {
-
         public void AddEmployee(Employee employee)
         {
-            //Ajouter la logique d'inserer un employee dans la base 
+            try
+            {
+                _requête =  /*Partie emplyee*/
+                " INSERT INTO [dbo].[Employee] ([BusinessEntityID] ,[NationalIDNumber] ,[LoginID],[JobTitle] " +
+                           " ,[BirthDate],[MaritalStatus],[Gender],[HireDate],[VacationHours] ,[SickLeaveHours],[ModifiedDate]) " +
+                     $" VALUES ({employee.BusinessEntityID} " +
+                         $"  ,'{employee.NationalIDNumber}' " +
+                         $"  , '{employee.LoginID}' " +
+                         $"  ,'{employee.JobTitle}' " +
+                        $"  ,'{employee.BirthDate}' " +
+                         $" ,'{employee.MaritalStatus}' " +
+                         $" ,'{employee.Gender}' " +
+                         $"  ,'{employee.HireDate}' " +
+                         $"  ,{employee.VacationHours} " +
+                         $"  ,{employee.SickLeaveHours} " +
+                         $"  ,'{employee.ModifiedDate}') " +
+                /*Partie Personne*/
+                "INSERT INTO [dbo].[Person] ([BusinessEntityID] ,[PersonType] " +
+                "     ,[Title] ,[FirstName]  ,[MiddleName] ,[LastName] ,[EmailPromotion],[ModifiedDate]) " +
+                $"	  VALUES  ({employee.BusinessEntityID} " +
+                $"   ,'{employee.PersonType}' " +
+                $"  ,'{employee.Title}' " +
+                $"  ,'{employee.FirstName}' " +
+                $"  ,'{employee.MiddleName}' " +
+                $"  ,'{employee.LastName}' " +
+                $" ,{employee.EmailPromotion} " +
+                $",'{employee.ModifiedDate}') ";
+               
+                _sqlConnection.Open();
+                _sqlCommand = new SqlCommand(_requête, _sqlConnection);
+                _sqlCommand.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                _sqlConnection.Close();
+            }
         }
 
         public Employee GetEmployee(int id)

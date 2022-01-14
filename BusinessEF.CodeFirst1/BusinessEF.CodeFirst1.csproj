@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F820FDA7-D697-4D75-95A2-094F5C8E6E71}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Business.ADO</RootNamespace>
-    <AssemblyName>Business.ADO</AssemblyName>
+    <ProjectGuid>{B9C3B66D-F44B-422F-98A7-A2DDA5F3FAE5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>BusinessEF.CodeFirst1</RootNamespace>
+    <AssemblyName>BusinessEF.CodeFirst1</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,8 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,27 +52,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConnectedMode\DataContext-EDH.cs" />
-    <Compile Include="ConnectedMode\DataContext-Departement.cs" />
-    <Compile Include="ConnectedMode\DataContext-Employee.cs" />
-    <Compile Include="ConnectedMode\DataContext-Customer.cs" />
-    <Compile Include="ConnectedMode\DataContext-Store.cs" />
-    <Compile Include="Data\Customer.cs" />
-    <Compile Include="Data\Departement.cs" />
-    <Compile Include="Data\Employee.cs" />
-    <Compile Include="Data\EmployeeDepartementHistory.cs" />
-    <Compile Include="Data\Person.cs" />
-    <Compile Include="Data\Store.cs" />
-    <Compile Include="DisconnectedMode\DataContext-Customer.cs" />
-    <Compile Include="DisconnectedMode\DataContext-Departement.cs" />
-    <Compile Include="DisconnectedMode\DataContext-EDH.cs" />
-    <Compile Include="DisconnectedMode\DataContext-Employee.cs" />
-    <Compile Include="DisconnectedMode\DataContext-Store.cs" />
+    <Compile Include="CodeFirstModel.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="Person.cs" />
+    <Compile Include="Persons_Employee.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="adventureworkslt.sql" />
-    <Content Include="Model.jpg" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

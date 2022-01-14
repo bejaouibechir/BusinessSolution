@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F820FDA7-D697-4D75-95A2-094F5C8E6E71}</ProjectGuid>
+    <ProjectGuid>{5E6124E6-21DF-42CC-925D-4A8651F39C9B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Business.ADO</RootNamespace>
-    <AssemblyName>Business.ADO</AssemblyName>
+    <RootNamespace>Business.DAL</RootNamespace>
+    <AssemblyName>Business.DAL</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,27 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConnectedMode\DataContext-EDH.cs" />
-    <Compile Include="ConnectedMode\DataContext-Departement.cs" />
-    <Compile Include="ConnectedMode\DataContext-Employee.cs" />
-    <Compile Include="ConnectedMode\DataContext-Customer.cs" />
-    <Compile Include="ConnectedMode\DataContext-Store.cs" />
-    <Compile Include="Data\Customer.cs" />
-    <Compile Include="Data\Departement.cs" />
-    <Compile Include="Data\Employee.cs" />
-    <Compile Include="Data\EmployeeDepartementHistory.cs" />
-    <Compile Include="Data\Person.cs" />
-    <Compile Include="Data\Store.cs" />
-    <Compile Include="DisconnectedMode\DataContext-Customer.cs" />
-    <Compile Include="DisconnectedMode\DataContext-Departement.cs" />
-    <Compile Include="DisconnectedMode\DataContext-EDH.cs" />
-    <Compile Include="DisconnectedMode\DataContext-Employee.cs" />
-    <Compile Include="DisconnectedMode\DataContext-Store.cs" />
+    <Compile Include="Abstraction\IRepository.cs" />
+    <Compile Include="ImplAdoSqlServer\DepartementRepository.cs" />
+    <Compile Include="ImplJson\DepartementRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="adventureworkslt.sql" />
-    <Content Include="Model.jpg" />
+    <Folder Include="ImplEFSqlServer\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business.ADO\Business.ADO.csproj">
+      <Project>{f820fda7-d697-4d75-95a2-094f5c8e6e71}</Project>
+      <Name>Business.ADO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Business.JSON\Business.JSON.csproj">
+      <Project>{9eff7519-080e-4703-ab7a-a3050533955f}</Project>
+      <Name>Business.JSON</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

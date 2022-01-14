@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BusinessModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BusinessModelStoreContainer">
+    <EntitySet Name="Persons" EntityType="BusinessModel.Store.Persons" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Customers" EntityType="BusinessModel.Store.Customers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Stores" EntityType="BusinessModel.Store.Stores" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Departements" EntityType="BusinessModel.Store.Departements" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Persons_Employee" EntityType="BusinessModel.Store.Persons_Employee" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Departement_Employee" EntityType="BusinessModel.Store.Departement_Employee" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="EmployeeCustomer" Association="BusinessModel.Store.EmployeeCustomer">
+      <End Role="Employee" EntitySet="Persons_Employee" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="StoreCustomer" Association="BusinessModel.Store.StoreCustomer">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Departement_Employee_Departement" Association="BusinessModel.Store.FK_Departement_Employee_Departement">
+      <End Role="Departement" EntitySet="Departements" />
+      <End Role="Departement_Employee" EntitySet="Departement_Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Departement_Employee_Employee" Association="BusinessModel.Store.FK_Departement_Employee_Employee">
+      <End Role="Employee" EntitySet="Persons_Employee" />
+      <End Role="Departement_Employee" EntitySet="Departement_Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_inherits_Person" Association="BusinessModel.Store.FK_Employee_inherits_Person">
+      <End Role="Person" EntitySet="Persons" />
+      <End Role="Employee" EntitySet="Persons_Employee" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Persons">
+    <Key>
+      <PropertyRef Name="BusinessEntityID" />
+    </Key>
+    <Property Name="BusinessEntityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MidlleName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EmailPromotion" Type="int" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonID" Type="int" Nullable="false" />
+    <Property Name="StoreID" Type="int" Nullable="false" />
+    <Property Name="TerritoryID" Type="int" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+    <Property Name="EmployeeBusinessEntityID" Type="int" Nullable="false" />
+    <Property Name="StoreStoreID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Stores">
+    <Key>
+      <PropertyRef Name="StoreID" />
+    </Key>
+    <Property Name="StoreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Region" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Departements">
+    <Key>
+      <PropertyRef Name="DepartementID" />
+    </Key>
+    <Property Name="DepartementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="GroupName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Persons_Employee">
+    <Key>
+      <PropertyRef Name="BusinessEntityID" />
+    </Key>
+    <Property Name="NationalIDNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LoginID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="JobTitle" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BirthDate" Type="datetime" Nullable="false" />
+    <Property Name="MartialStatus" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Gender" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HireDate" Type="datetime" Nullable="false" />
+    <Property Name="VacationHours" Type="int" Nullable="false" />
+    <Property Name="SickLeaveHours" Type="int" Nullable="false" />
+    <Property Name="BusinessEntityID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Departement_Employee">
+    <Key>
+      <PropertyRef Name="Departements_DepartementID" />
+      <PropertyRef Name="Employees_BusinessEntityID" />
+    </Key>
+    <Property Name="Departements_DepartementID" Type="int" Nullable="false" />
+    <Property Name="Employees_BusinessEntityID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="EmployeeCustomer">
+    <End Role="Employee" Type="BusinessModel.Store.Persons_Employee" Multiplicity="1" />
+    <End Role="Customer" Type="BusinessModel.Store.Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="BusinessEntityID" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="EmployeeBusinessEntityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StoreCustomer">
+    <End Role="Store" Type="BusinessModel.Store.Stores" Multiplicity="1" />
+    <End Role="Customer" Type="BusinessModel.Store.Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="StoreID" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="StoreStoreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Departement_Employee_Departement">
+    <End Role="Departement" Type="BusinessModel.Store.Departements" Multiplicity="1" />
+    <End Role="Departement_Employee" Type="BusinessModel.Store.Departement_Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departement">
+        <PropertyRef Name="DepartementID" />
+      </Principal>
+      <Dependent Role="Departement_Employee">
+        <PropertyRef Name="Departements_DepartementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Departement_Employee_Employee">
+    <End Role="Departement_Employee" Type="BusinessModel.Store.Departement_Employee" Multiplicity="*" />
+    <End Role="Employee" Type="BusinessModel.Store.Persons_Employee" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="BusinessEntityID" />
+      </Principal>
+      <Dependent Role="Departement_Employee">
+        <PropertyRef Name="Employees_BusinessEntityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_inherits_Person">
+    <End Role="Person" Type="BusinessModel.Store.Persons" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Employee" Type="BusinessModel.Store.Persons_Employee" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="BusinessEntityID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="BusinessEntityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="BusinessModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="BusinessModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Persons" EntityType="BusinessModel.Person" />
+          <EntitySet Name="Customers" EntityType="BusinessModel.Customer" />
+          <AssociationSet Name="EmployeeCustomer" Association="BusinessModel.EmployeeCustomer">
+            <End Role="Employee" EntitySet="Persons" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <EntitySet Name="Stores" EntityType="BusinessModel.Store" />
+          <AssociationSet Name="StoreCustomer" Association="BusinessModel.StoreCustomer">
+            <End Role="Store" EntitySet="Stores" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <EntitySet Name="Departements" EntityType="BusinessModel.Departement" />
+          <AssociationSet Name="Departement_Employee" Association="BusinessModel.Departement_Employee">
+            <End Role="Departement" EntitySet="Departements" />
+            <End Role="Employee" EntitySet="Persons" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="BusinessEntityID" />
+          </Key>
+          <Property Name="BusinessEntityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonType" Type="String" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="MidlleName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="EmailPromotion" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee" BaseType="BusinessModel.Person" >
+          <Property Name="NationalIDNumber" Type="String" Nullable="false" />
+          <Property Name="LoginID" Type="String" Nullable="false" />
+          <Property Name="JobTitle" Type="String" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" />
+          <Property Name="MartialStatus" Type="String" Nullable="false" />
+          <Property Name="Gender" Type="String" Nullable="false" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" />
+          <Property Name="VacationHours" Type="Int32" Nullable="false" />
+          <Property Name="SickLeaveHours" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="BusinessModel.EmployeeCustomer" FromRole="Employee" ToRole="Customer" />
+          <NavigationProperty Name="Departements" Relationship="BusinessModel.Departement_Employee" FromRole="Employee" ToRole="Departement" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="StoreID" Type="Int32" Nullable="false" />
+          <Property Name="TerritoryID" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="BusinessModel.EmployeeCustomer" FromRole="Customer" ToRole="Employee" />
+          <Property Name="EmployeeBusinessEntityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Store" Relationship="BusinessModel.StoreCustomer" FromRole="Customer" ToRole="Store" />
+          <Property Name="StoreStoreID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="EmployeeCustomer">
+          <End Type="BusinessModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="BusinessModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="BusinessEntityID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="EmployeeBusinessEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="StoreID" />
+          </Key>
+          <Property Name="StoreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Country" Type="String" Nullable="false" />
+          <Property Name="City" Type="String" Nullable="false" />
+          <Property Name="Region" Type="String" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="BusinessModel.StoreCustomer" FromRole="Store" ToRole="Customer" />
+        </EntityType>
+        <Association Name="StoreCustomer">
+          <End Type="BusinessModel.Store" Role="Store" Multiplicity="1" />
+          <End Type="BusinessModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="StoreID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="StoreStoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Departement">
+          <Key>
+            <PropertyRef Name="DepartementID" />
+          </Key>
+          <Property Name="DepartementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="GroupName" Type="String" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="BusinessModel.Departement_Employee" FromRole="Departement" ToRole="Employee" />
+        </EntityType>
+        <Association Name="Departement_Employee">
+          <End Type="BusinessModel.Departement" Role="Departement" Multiplicity="*" />
+          <End Type="BusinessModel.Employee" Role="Employee" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BusinessModelStoreContainer" CdmEntityContainer="BusinessModelContainer">
+    <EntitySetMapping Name="Persons">
+      <EntityTypeMapping TypeName="IsTypeOf(BusinessModel.Person)">
+        <MappingFragment StoreEntitySet="Persons">
+          <ScalarProperty Name="BusinessEntityID" ColumnName="BusinessEntityID" />
+          <ScalarProperty Name="PersonType" ColumnName="PersonType" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MidlleName" ColumnName="MidlleName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="EmailPromotion" ColumnName="EmailPromotion" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(BusinessModel.Employee)">
+        <MappingFragment StoreEntitySet="Persons_Employee">
+          <ScalarProperty Name="BusinessEntityID" ColumnName="BusinessEntityID" />
+          <ScalarProperty Name="NationalIDNumber" ColumnName="NationalIDNumber" />
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="MartialStatus" ColumnName="MartialStatus" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+          <ScalarProperty Name="VacationHours" ColumnName="VacationHours" />
+          <ScalarProperty Name="SickLeaveHours" ColumnName="SickLeaveHours" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="IsTypeOf(BusinessModel.Customer)">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+          <ScalarProperty Name="TerritoryID" ColumnName="TerritoryID" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="EmployeeBusinessEntityID" ColumnName="EmployeeBusinessEntityID" />
+          <ScalarProperty Name="StoreStoreID" ColumnName="StoreStoreID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stores">
+      <EntityTypeMapping TypeName="IsTypeOf(BusinessModel.Store)">
+        <MappingFragment StoreEntitySet="Stores">
+          <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Region" ColumnName="Region" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departements">
+      <EntityTypeMapping TypeName="IsTypeOf(BusinessModel.Departement)">
+        <MappingFragment StoreEntitySet="Departements">
+          <ScalarProperty Name="DepartementID" ColumnName="DepartementID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Departement_Employee" TypeName="BusinessModel.Departement_Employee" StoreEntitySet="Departement_Employee">
+      <EndProperty Name="Departement">
+        <ScalarProperty Name="DepartementID" ColumnName="Departements_DepartementID" />
+      </EndProperty>
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="BusinessEntityID" ColumnName="Employees_BusinessEntityID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

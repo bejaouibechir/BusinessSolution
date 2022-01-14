@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9ed53b7fdf7b4d6cbfcc24ad419a6e5d" Name="Diagram1">
+        <EntityTypeShape EntityType="BusinessDataBaseFirstModel.Customer" Width="1.5" PointX="9.625" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessDataBaseFirstModel.Departement" Width="1.5" PointX="3.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessDataBaseFirstModel.Person" Width="1.5" PointX="7.125" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessDataBaseFirstModel.Persons_Employee" Width="1.5" PointX="7" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusinessDataBaseFirstModel.Store" Width="1.5" PointX="12.5" PointY="2.5" IsExpanded="true" />
+        <AssociationConnector Association="BusinessDataBaseFirstModel.FK_EmployeeCustomer" ManuallyRouted="false" />
+        <AssociationConnector Association="BusinessDataBaseFirstModel.FK_StoreCustomer" ManuallyRouted="false" />
+        <AssociationConnector Association="BusinessDataBaseFirstModel.FK_Employee_inherits_Person" ManuallyRouted="false" />
+        <AssociationConnector Association="BusinessDataBaseFirstModel.Departement_Employee" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

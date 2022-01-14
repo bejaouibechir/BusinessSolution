@@ -54,6 +54,14 @@
       <Project>{f820fda7-d697-4d75-95a2-094f5c8e6e71}</Project>
       <Name>Business.ADO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Business.DAL\Business.DAL.csproj">
+      <Project>{5e6124e6-21df-42cc-925d-4a8651f39c9b}</Project>
+      <Name>Business.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Business.JSON\Business.JSON.csproj">
+      <Project>{9eff7519-080e-4703-ab7a-a3050533955f}</Project>
+      <Name>Business.JSON</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
